@@ -1,8 +1,6 @@
 # Logs all html available through terrible airplane wifi
 # Requires requests
-import os
 import requests
-import sys
 import json
 
 airplane = open("airplane.json","w")
