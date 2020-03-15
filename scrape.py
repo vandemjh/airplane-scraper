@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # Logs all html available through terrible airplane wifi
 # Requires requests
 import requests
@@ -6,7 +8,6 @@ import json
 airplane = open("airplane.json","w")
 
 toReturn = {}
-count = 0
 for i in range(100):
     URL = "https://www.aainflight.com/media/" + str(i)
     page = requests.get(URL)
