@@ -29,10 +29,29 @@ for val in toReturn.values():
 
 json.dump(toReturn, airplane, sort_keys=True)
 
-chart = ScatterPlot()
-chart.data = toReturn
-chart.width      = 115
-chart.height     = 80
-chart.x          = 30
-chart.y          = 40
-chart.save()
+        drawing = Drawing(200, 100)
+
+        data = [
+                (13, 5, 20, 22, 37, 45, 19, 4),
+                (14, 10, 21, 28, 38, 46, 25, 5)
+                ]
+
+        lc = HorizontalLineChart()
+
+        lc.x = 20
+        lc.y = 10
+        lc.height = 85
+        lc.width = 170
+        lc.data = data
+        lc.lines.symbol = makeMarker('Circle')
+
+        drawing.add(lc)
+
+        return drawing
+# chart = ScatterPlot()
+# chart.data = toReturn
+# chart.width      = 115
+# chart.height     = 80
+# chart.x          = 30
+# chart.y          = 40
+# chart.save()
