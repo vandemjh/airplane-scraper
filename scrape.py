@@ -3,6 +3,8 @@
 # Logs all html available through terrible airplane wifi
 import requests
 import json
+import os
+import math
 
 
 # airplane = open("airplane.json","w")
@@ -39,7 +41,8 @@ for i in range(len(toReturn.values())):
 sortedValues = list(toReturn.values())
 sortedValues.sort(reverse = True)
 
-stopPoint = len(valueRange) // 10
+stopPoint = 100 if len(sortedValues) > 100 else len(sortedValues)# math.floor(len(valueRange) * .1)
+stopPercent = 100 / len(sortedValues)
 
 try:
     import matplotlib.pyplot as plt
@@ -48,9 +51,23 @@ except:
     quit()
 
 fig = plt.figure()
-ax = fig.add_axes([0,0,1,1])
+ax = fig.add_axes([.1,.1,.8,.8])
 ax.scatter(valueRange[0:stopPoint], sortedValues[0:stopPoint])
 ax.set_xlabel("Code fragement")
 ax.set_ylabel("Number of occurance")
-ax.set_title("Number of occurances by code fragement (10% of values)")
-plt.show()
+# plt.suptitle('Number of occurances by code fragement (10% of values)', fontsize = 12)
+ax.set_title("Number of occurances by code fragement (" + str("<.1" if math.floor(stopPercent * 100) == 0 else math.floor(stopPercent * 100)) + "% of values)")
+# plt.show()
+plt.savefig("Number of occurances by code fragement")
+plt.close(fig)
+
+
+fig = plt.figure()
+ax = fig.add_axes([.1,.1,.8,.8])
+ax.loglog(valueRange, sortedValues)
+ax.set_xlabel("Code fragement")
+ax.set_ylabel("Number of occurance")
+ax.set_title("Log Log Graph of Code fragements by number of occurances")
+# plt.show()
+plt.savefig("Log Log Graph of Code fragements by number of occurances")
+plt.close(fig)
