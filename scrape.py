@@ -30,16 +30,27 @@ for val in toReturn.values():
         largestVal = val
 
 # json.dump(toReturn, airplane)
+print("Scrape exported to airplane.json")
 
 valueRange = []
 for i in range(len(toReturn.values())):
     valueRange.append(i)
 
-import matplotlib.pyplot as plt
+sortedValues = list(toReturn.values())
+sortedValues.sort(reverse = True)
+
+stopPoint = len(valueRange) // 10
+
+try:
+    import matplotlib.pyplot as plt
+except:
+    print("It doesn't look like you have matplotlib installed\n\tInstall it using \"pip3 install matplotlib\"")
+    quit()
+
 fig = plt.figure()
 ax = fig.add_axes([0,0,1,1])
-ax.scatter(valueRange, toReturn.values(), color = 'r')
+ax.scatter(valueRange[0:stopPoint], sortedValues[0:stopPoint])
 ax.set_xlabel("Code fragement")
 ax.set_ylabel("Number of occurance")
-ax.set_title("Number of occurances by code fragement")
+ax.set_title("Number of occurances by code fragement (10% of values)")
 plt.show()
