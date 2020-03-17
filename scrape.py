@@ -59,7 +59,7 @@ def getLinks(URL):
             #     if (URL in space): # and URL in space for only on this domain
             #         toReturn.append(findURL(space))
     except:
-        print("Improper link: " + str(URL))
+        print("\tImproper link parsed: " + str(URL))
     finally:
         return toReturn
         # return list(filter(lambda x: requests.get(x).status_code == 200, toReturn))
@@ -81,6 +81,7 @@ for URL in allPages:
     try:
         page = requests.get(URL)
     except: # Handles improper links that have slipped through the cracks
+        print("\tError at: " + str(URL))
         page.status_code = 500
     if (page.status_code == 200):
         contentSplit = str(page.content).split()
@@ -117,8 +118,8 @@ sortedValues = list(toReturn.values())
 sortedKeys = list(toReturn.keys())
 sortedValues.sort(reverse = True)
 
-stopPoint = 60 if len(sortedValues) > 60 else len(sortedValues)# math.floor(len(valueRange) * .1)
-stopPercent = 60 / len(sortedValues)
+stopPoint = 50 if len(sortedValues) > 50 else len(sortedValues)# math.floor(len(valueRange) * .1)
+stopPercent = 50 / len(sortedValues)
 
 try:
     import matplotlib.pyplot as plt
@@ -126,8 +127,10 @@ except:
     print("\tIt doesn't look like you have matplotlib installed!\n\tThat's fine, the results of the scrape are exported to file.\n\tYou can also install it using \"pip3 install matplotlib\"")
     quit()
 
+axesSettings = [.11,.11,.8,.8]
+
 fig = plt.figure()
-ax = fig.add_axes([.1,.1,.8,.8])
+ax = fig.add_axes(axesSettings)
 ax.scatter(valueRange[0:stopPoint], sortedValues[0:stopPoint])
 ax.set_xlabel("Code fragement")
 ax.set_ylabel("Number of occurance")
@@ -139,7 +142,7 @@ plt.close(fig)
 
 
 fig = plt.figure()
-ax = fig.add_axes([.1,.1,.8,.8])
+ax = fig.add_axes(axesSettings)
 ax.loglog(valueRange, sortedValues)
 ax.set_xlabel("Code fragement")
 ax.set_ylabel("Number of occurance")
