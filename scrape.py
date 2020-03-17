@@ -123,7 +123,7 @@ stopPercent = 60 / len(sortedValues)
 try:
     import matplotlib.pyplot as plt
 except:
-    print("It doesn't look like you have matplotlib installed\n\tInstall it using \"pip3 install matplotlib\"")
+    print("\tIt doesn't look like you have matplotlib installed!\n\tThat's fine, the results of the scrape are exported to file.\n\tYou can also install it using \"pip3 install matplotlib\"")
     quit()
 
 fig = plt.figure()
