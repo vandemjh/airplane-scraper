@@ -6,3 +6,4 @@ __pycache__/
 
 airplane.json
 temp.airplane.json
+*.png
